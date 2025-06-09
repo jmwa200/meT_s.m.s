@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from .views import StudentList, StudentDetail, AttendanceList
-from .auth import CustomAuthToken
+from api.auth import CustomAuthToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),

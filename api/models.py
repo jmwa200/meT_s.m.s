@@ -8,6 +8,7 @@ class User(AbstractUser):
         STUDENT = 3, 'Student'
 
     role = models.IntegerField(choices=Roles.choices, default=Roles.STUDENT)
+    role_profile = models.ForeignKey('Role', on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
 
 class Permission(models.Model):
     name = models.CharField(max_length=255)
@@ -18,12 +19,10 @@ class Role(models.Model):
     permissions = models.ManyToManyField(Permission)
 
 class Student(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_profile', primary_key=True)
 
 class Teacher(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='teacher_profile', primary_key=True)
 
 class Class(models.Model):
     name = models.CharField(max_length=255)
